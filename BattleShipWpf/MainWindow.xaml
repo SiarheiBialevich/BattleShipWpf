@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         FontSize="24"
         Title="Морской Бой" Height="450" Width="800">
+  
   <Grid>
     
     <Grid.ColumnDefinitions>
@@ -24,5 +25,8 @@
       <TextBlock Text="{Binding Steps}" d:Text="Step: 5"/>
       <TextBlock Text="{Binding Goal}" d:Text="Goal: 5"/>
     </StackPanel>
+
+    <Button Grid.Column="1" Content=" Start " Click="btnStart" />
+    <Button Grid.Column="2" Content=" Stop " Click="btnStop" />
   </Grid>
 </Window>

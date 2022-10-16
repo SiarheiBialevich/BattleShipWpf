@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace BattleShipWpf
@@ -7,10 +8,13 @@ namespace BattleShipWpf
    {
       public event PropertyChangedEventHandler PropertyChanged;
 
-      protected void Set<T>(ref T field, T value, [CallerMemberName] string propName = "")
+      protected void Set<T>(ref T field, T value, [CallerMemberName] string propName = "") where T: IEquatable<T>
       {
-         field = value;
-         PropertyChanged(this, new PropertyChangedEventArgs(propName));
+         if (!field.Equals(value))
+         {
+            field = value;
+            PropertyChanged(this, new PropertyChangedEventArgs(propName));
+         }
       }
 
       protected void Fire(params string[] names)
