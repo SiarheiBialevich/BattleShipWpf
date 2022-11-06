@@ -8,7 +8,7 @@ namespace BattleShipWpf
    {
       public event PropertyChangedEventHandler PropertyChanged;
 
-      protected void Set<T>(ref T field, T value, [CallerMemberName] string propName = "") where T: IEquatable<T>
+      protected void Set<T>(ref T field, T value, [CallerMemberName] string propName = "")
       {
          if (!field.Equals(value))
          {

@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace BattleShipWpf
 {
@@ -14,14 +16,12 @@ namespace BattleShipWpf
          DataContext = bs;
       }
 
-      private void btnStart(object sender, RoutedEventArgs e)
+      private void Border_MouseDown(object sender, MouseButtonEventArgs e)
       {
-         bs.Start();
-      }
-
-      private void btnStop(object sender, RoutedEventArgs e)
-      {
-         bs.Stop();
+         var brd = sender as Border;
+         var cellVM = brd.DataContext as CellVM;
+         cellVM.SetMiss()
+         ;
       }
    }
 }

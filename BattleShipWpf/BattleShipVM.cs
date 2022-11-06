@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Resources;
+using System.Windows;
 using System.Windows.Threading;
 
 namespace BattleShipWpf
@@ -66,5 +67,17 @@ namespace BattleShipWpf
 
    internal class CellVM : ViewModelBase
    {
+      Visibility _visibility = Visibility.Collapsed;
+
+      public Visibility Miss
+      {
+         get => _visibility;
+         private set => Set(ref _visibility, value);
+      }
+
+      public void SetMiss()
+      {
+         Miss = Visibility.Visible;
+      }
    }
 }
