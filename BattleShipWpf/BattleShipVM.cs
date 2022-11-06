@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Resources;
 using System.Windows.Threading;
 
 namespace BattleShipWpf
@@ -9,6 +10,9 @@ namespace BattleShipWpf
       DateTime startTime;
 
       string time = "";
+
+      public CellVM[][] OurMap { get; private set; }
+      public CellVM[][] EnemyMap { get; private set; }
 
       public string Time {
          get => time;
@@ -21,6 +25,23 @@ namespace BattleShipWpf
          timer.Interval = TimeSpan.FromMilliseconds(100);
          timer.Tick += Timer_Tick;
 
+         OurMap = MapFabrica();
+         EnemyMap = MapFabrica();
+      }
+
+      CellVM[][] MapFabrica()
+      {
+         var map = new CellVM[10][];
+         for (int i = 0; i < 10; i++)
+         {
+            map[i] = new CellVM[10];
+            for (int j = 0; j < 10; j++)
+            {
+               map[i][j] = new CellVM();
+            }
+         }
+
+         return map;
       }
 
       private void Timer_Tick(object? sender, EventArgs e)
@@ -41,5 +62,9 @@ namespace BattleShipWpf
       {
          timer.Stop();
       }
+   }
+
+   internal class CellVM : ViewModelBase
+   {
    }
 }

@@ -6,14 +6,14 @@
         xmlns:local="clr-namespace:BattleShipWpf"
         mc:Ignorable="d"
         FontSize="24"
-        Title="Морской Бой" Height="450" Width="800">
+        Title="Морской Бой" Height="450" Width="900">
   
   <Grid>
     
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="2*" />
-      <ColumnDefinition Width="2*" />
+      <ColumnDefinition Width="3*" />
+      <ColumnDefinition Width="3*" />
     </Grid.ColumnDefinitions>
 
     <StackPanel Margin="20">
@@ -26,7 +26,56 @@
       <TextBlock Text="{Binding Goal}" d:Text="Goal: 5"/>
     </StackPanel>
 
-    <Button Grid.Column="1" Content=" Start " Click="btnStart" />
-    <Button Grid.Column="2" Content=" Stop " Click="btnStop" />
+    <ItemsControl Grid.Column="1"
+                  ItemsSource="{Binding OurMap}"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <ItemsControl ItemsSource="{Binding}">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <StackPanel Orientation="Horizontal" />
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Border BorderBrush="#400F" 
+                        BorderThickness="1" 
+                        Width="30" 
+                        Height="30"
+                        Margin="0,0,-1,-1"></Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+    
+    <ItemsControl Grid.Column="2"
+                  ItemsSource="{Binding EnemyMap}"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <ItemsControl ItemsSource="{Binding}">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <StackPanel Orientation="Horizontal" />
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Border BorderBrush="#400F" 
+                        BorderThickness="1" 
+                        Width="30" 
+                        Height="30"
+                        Margin="0,0,-1,-1"></Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
   </Grid>
 </Window>
