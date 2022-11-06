@@ -7,38 +7,53 @@ namespace BattleShipWpf
 {
    class BattleShipVM : ViewModelBase
    {
-      DispatcherTimer timer;
-      DateTime startTime;
+      DispatcherTimer _timer;
+      DateTime _startTime;
 
-      string time = "";
+      string _time = "";
+
+      private string _ourMap =
+         @"
+**********
+*XXXX***X*
+******X***
+XX*XX***XX
+******X***
+*XXX******
+*****XXX**
+**********
+***X******
+**********
+";
 
       public CellVM[][] OurMap { get; private set; }
       public CellVM[][] EnemyMap { get; private set; }
 
       public string Time {
-         get => time;
-         private set => Set( ref time, value); 
+         get => _time;
+         private set => Set( ref _time, value); 
       }
 
       public BattleShipVM()
       {
-         timer = new DispatcherTimer();
-         timer.Interval = TimeSpan.FromMilliseconds(100);
-         timer.Tick += Timer_Tick;
+         _timer = new DispatcherTimer();
+         _timer.Interval = TimeSpan.FromMilliseconds(100);
+         _timer.Tick += Timer_Tick;
 
-         OurMap = MapFabrica();
-         EnemyMap = MapFabrica();
+         OurMap = MapFabrica(_ourMap);
+         EnemyMap = MapFabrica(_ourMap);
       }
 
-      CellVM[][] MapFabrica()
+      CellVM[][] MapFabrica(string str)
       {
+         var mp = str.Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
          var map = new CellVM[10][];
          for (int i = 0; i < 10; i++)
          {
             map[i] = new CellVM[10];
             for (int j = 0; j < 10; j++)
             {
-               map[i][j] = new CellVM();
+               map[i][j] = new CellVM(mp[i][j]);
             }
          }
 
@@ -48,36 +63,56 @@ namespace BattleShipWpf
       private void Timer_Tick(object? sender, EventArgs e)
       {
          var now = DateTime.Now;
-         var dt = now - startTime;
+         var dt = now - _startTime;
          Time = dt.ToString(@"mm\:ss");
 
       }
 
       public void Start()
       {
-         startTime = DateTime.Now;
-         timer.Start();
+         _startTime = DateTime.Now;
+         _timer.Start();
       }
 
       public void Stop()
       {
-         timer.Stop();
+         _timer.Stop();
+      }
+
+      public void ShotToOurMap(int x, int y)
+      {
+         OurMap[y][x].SetState();
       }
    }
 
    internal class CellVM : ViewModelBase
    {
       Visibility _visibility = Visibility.Collapsed;
+      private bool _ship;
+
+      public CellVM(char state)
+      {
+         _ship = state == 'X';
+      }
 
       public Visibility Miss
       {
          get => _visibility;
          private set => Set(ref _visibility, value);
       }
-
-      public void SetMiss()
+      
+      public Visibility Shot
       {
-         Miss = Visibility.Visible;
+         get => _visibility;
+         private set => Set(ref _visibility, value);
+      }
+
+      public void SetState()
+      {
+         if (_ship)
+            Shot = Visibility.Visible;
+         else
+            Miss = Visibility.Visible;
       }
    }
 }

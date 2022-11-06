@@ -8,6 +8,29 @@
         FontSize="24"
         Title="Морской Бой" Height="450" Width="900">
   
+  <Window.Resources>
+    <DataTemplate DataType="{x:Type local:CellVM}">
+      <Border BorderBrush="#400F"
+              Background="Transparent"
+              BorderThickness="1" 
+              Width="30" 
+              Height="30"
+              Margin="0,0,-1,-1"
+              MouseDown="Border_MouseDown">
+        <Grid>
+          <Ellipse Width="7" Height="7" Fill="#8F00"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Visibility="{Binding Miss}" />
+          <Path Data="M4,4 L25,25 M25,4 L4,25"
+                Stroke="#8F00"
+                StrokeThickness="3"
+                Visibility="{Binding Shot}" />
+        </Grid>
+      </Border>
+    </DataTemplate>
+  </Window.Resources>
+  
   <Grid>
     
     <Grid.ColumnDefinitions>
@@ -38,15 +61,6 @@
                 <StackPanel Orientation="Horizontal" />
               </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-              <DataTemplate>
-                <Border BorderBrush="#400F" 
-                        BorderThickness="1" 
-                        Width="30" 
-                        Height="30"
-                        Margin="0,0,-1,-1"></Border>
-              </DataTemplate>
-            </ItemsControl.ItemTemplate>
           </ItemsControl>
         </DataTemplate>
       </ItemsControl.ItemTemplate>
@@ -64,24 +78,7 @@
                 <StackPanel Orientation="Horizontal" />
               </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-              <DataTemplate>
-                <Border BorderBrush="#400F"
-                        Background="Transparent"
-                        BorderThickness="1" 
-                        Width="30" 
-                        Height="30"
-                        Margin="0,0,-1,-1"
-                        MouseDown="Border_MouseDown">
-                  <Grid>
-                    <Ellipse Width="7" Height="7" Fill="Red"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Center"
-                             Visibility="{Binding Miss}"/>
-                  </Grid>
-                </Border>
-              </DataTemplate>
-            </ItemsControl.ItemTemplate>
+            
           </ItemsControl>
         </DataTemplate>
       </ItemsControl.ItemTemplate>

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -10,6 +11,7 @@ namespace BattleShipWpf
    public partial class MainWindow : Window
    {
       BattleShipVM bs = new BattleShipVM();
+      private Random rnd = new Random();
       public MainWindow()
       {
          InitializeComponent();
@@ -20,8 +22,11 @@ namespace BattleShipWpf
       {
          var brd = sender as Border;
          var cellVM = brd.DataContext as CellVM;
-         cellVM.SetMiss()
-         ;
+         cellVM.SetState();
+
+         var x = rnd.Next(10);
+         var y = rnd.Next(10);
+         bs.ShotToOurMap(x, y);
       }
    }
 }
