@@ -22,7 +22,7 @@ namespace BattleShipWpf
       {
          var brd = sender as Border;
          var cellVM = brd.DataContext as CellVM;
-         cellVM.SetState();
+         cellVM.ToShot();
 
          var x = rnd.Next(10);
          var y = rnd.Next(10);

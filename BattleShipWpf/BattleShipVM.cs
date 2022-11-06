@@ -81,38 +81,27 @@ XX*XX***XX
 
       public void ShotToOurMap(int x, int y)
       {
-         OurMap[y][x].SetState();
+         OurMap[y][x].ToShot();
       }
    }
 
    internal class CellVM : ViewModelBase
    {
-      Visibility _visibility = Visibility.Collapsed;
-      private bool _ship;
+      private bool _ship, _shot;
 
       public CellVM(char state)
       {
          _ship = state == 'X';
       }
 
-      public Visibility Miss
-      {
-         get => _visibility;
-         private set => Set(ref _visibility, value);
-      }
+      public Visibility Miss => _shot && !_ship ? Visibility.Visible : Visibility.Collapsed;
       
-      public Visibility Shot
-      {
-         get => _visibility;
-         private set => Set(ref _visibility, value);
-      }
+      public Visibility Shot => _shot && _ship ? Visibility.Visible : Visibility.Collapsed;
 
-      public void SetState()
+      public void ToShot()
       {
-         if (_ship)
-            Shot = Visibility.Visible;
-         else
-            Miss = Visibility.Visible;
+         _shot = true;
+         Fire("Miss", "Shot");
       }
    }
 }
