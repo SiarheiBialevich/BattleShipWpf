@@ -17,7 +17,7 @@ namespace BattleShipWpf
          }
       }
 
-      protected void Fire(params string[] names)
+      protected void Notify(params string[] names)
       {
          foreach (var name in names)
          {

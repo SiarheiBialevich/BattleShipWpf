@@ -10,7 +10,7 @@
   
   <Window.Resources>
     <DataTemplate DataType="{x:Type local:CellVM}">
-      <Border BorderBrush="#400F"
+      <Border BorderBrush="#404F"
               Background="Transparent"
               BorderThickness="1" 
               Width="30" 
@@ -29,6 +29,23 @@
         </Grid>
       </Border>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type local:MapVM}">
+      <ItemsControl Grid.Column="1"
+                    ItemsSource="{Binding Map}"
+                    >
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <ItemsControl ItemsSource="{Binding}">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+            </ItemsControl>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </DataTemplate>
   </Window.Resources>
   
   <Grid>
@@ -38,6 +55,19 @@
       <ColumnDefinition Width="3*" />
       <ColumnDefinition Width="3*" />
     </Grid.ColumnDefinitions>
+    
+    <Grid Grid.Column="1">
+      <Rectangle Width="114" Height="24"
+                 RadiusX="40" RadiusY="10">
+        <Rectangle.Fill>
+          <LinearGradientBrush EndPoint="1,0">
+            <GradientStop Color="Silver" Offset="0" />
+            <GradientStop Color="Silver" Offset="0.5" />
+            <GradientStop Color="Silver" Offset="1" />
+          </LinearGradientBrush>
+        </Rectangle.Fill>
+      </Rectangle>
+    </Grid>
 
     <StackPanel Margin="20">
       <TextBlock d:Text="0:00"
@@ -49,39 +79,15 @@
       <TextBlock Text="{Binding Goal}" d:Text="Goal: 5"/>
     </StackPanel>
 
-    <ItemsControl Grid.Column="1"
-                  ItemsSource="{Binding OurMap}"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Center">
-      <ItemsControl.ItemTemplate>
-        <DataTemplate>
-          <ItemsControl ItemsSource="{Binding}">
-            <ItemsControl.ItemsPanel>
-              <ItemsPanelTemplate>
-                <StackPanel Orientation="Horizontal" />
-              </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-          </ItemsControl>
-        </DataTemplate>
-      </ItemsControl.ItemTemplate>
-    </ItemsControl>
+    <ContentControl Content="{Binding OurMap}"
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" />
     
-    <ItemsControl Grid.Column="2"
-                  ItemsSource="{Binding EnemyMap}"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Center">
-      <ItemsControl.ItemTemplate>
-        <DataTemplate>
-          <ItemsControl ItemsSource="{Binding}">
-            <ItemsControl.ItemsPanel>
-              <ItemsPanelTemplate>
-                <StackPanel Orientation="Horizontal" />
-              </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            
-          </ItemsControl>
-        </DataTemplate>
-      </ItemsControl.ItemTemplate>
-    </ItemsControl>
+    <ContentControl Content="{Binding EnemyMap}"
+                    Grid.Column="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" />
+    
   </Grid>
 </Window>
