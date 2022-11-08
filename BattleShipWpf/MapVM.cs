@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace BattleShipWpf;
 
 internal class MapVM : ViewModelBase
 {
-   private readonly CellVM[,] _map;
+   CellVM[,] _map;
 
+   public ObservableCollection<ShipVM> Ships { get; } = new ObservableCollection<ShipVM>();
    public CellVM this[int x, int y] => _map[y, x];
 
    public IReadOnlyCollection<IReadOnlyCollection<CellVM>> Map
@@ -29,7 +31,11 @@ internal class MapVM : ViewModelBase
       var mp = str.Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
       for (var i = 0; i < 10; i++)
       for (var j = 0; j < 10; j++)
-         _map[i, j].ToShip();
+      {
+         if (mp[i][j] == 'X')
+            _map[i, j].ToShip();
+      }
+         
    }
 
    public MapVM()

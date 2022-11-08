@@ -42,6 +42,8 @@ XX*XX***XX
 
          OurMap = new MapVM(_ourMap);
          EnemyMap = new MapVM(_ourMap);
+
+         FillShip();
       }
 
       private void Timer_Tick(object? sender, EventArgs e)
@@ -49,6 +51,26 @@ XX*XX***XX
          var now = DateTime.Now;
          var dt = now - _startTime;
          Time = dt.ToString(@"mm\:ss");
+      }
+
+      public void ShotToOurMap(int x, int y)
+      {
+         OurMap[x, y].ToShot();
+      }
+
+      void FillShip()
+      {
+         var ships = OurMap.Ships;
+         ships.Add(new ShipVM { Rang = 4, Pos = (1, 1) });
+         ships.Add(new ShipVM { Rang = 3, Pos = (6, 1), Direct = DirectionShip.Vertical });
+         ships.Add(new ShipVM { Rang = 3, Pos = (8, 1), Direct = DirectionShip.Vertical });
+         ships.Add(new ShipVM { Rang = 2, Pos = (1, 3) });
+         ships.Add(new ShipVM { Rang = 2, Pos = (1, 5) });
+         ships.Add(new ShipVM { Rang = 2, Pos = (4, 3), Direct = DirectionShip.Vertical });
+         ships.Add(new ShipVM { Rang = 1, Pos = (1, 9) });
+         ships.Add(new ShipVM { Rang = 1, Pos = (2, 7) });
+         ships.Add(new ShipVM { Rang = 1, Pos = (4, 7) });
+         ships.Add(new ShipVM { Rang = 1, Pos = (8, 9) });
       }
 
       public void Start()
@@ -60,11 +82,6 @@ XX*XX***XX
       public void Stop()
       {
          _timer.Stop();
-      }
-
-      public void ShotToOurMap(int x, int y)
-      {
-         OurMap[x, y].ToShot();
       }
    }
 }

@@ -13,8 +13,8 @@
       <Border BorderBrush="#404F"
               Background="Transparent"
               BorderThickness="1" 
-              Width="30" 
-              Height="30"
+              Width="31" 
+              Height="31"
               Margin="0,0,-1,-1"
               MouseDown="Border_MouseDown">
         <Grid>
@@ -29,22 +29,52 @@
         </Grid>
       </Border>
     </DataTemplate>
+    
     <DataTemplate DataType="{x:Type local:MapVM}">
-      <ItemsControl Grid.Column="1"
-                    ItemsSource="{Binding Map}"
-                    >
-        <ItemsControl.ItemTemplate>
-          <DataTemplate>
-            <ItemsControl ItemsSource="{Binding}">
-              <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                  <StackPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-              </ItemsControl.ItemsPanel>
-            </ItemsControl>
-          </DataTemplate>
-        </ItemsControl.ItemTemplate>
-      </ItemsControl>
+      <Grid>
+        <ItemsControl ItemsSource="{Binding Ships}"
+                      Width="300" Height="300">
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <Canvas />
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Rectangle Width="{Binding RangView}" Height="25"
+                         RadiusX="40" RadiusY="10">
+                <Rectangle.Fill>
+                  <LinearGradientBrush EndPoint="1,0">
+                    <GradientStop Color="Silver" Offset="0" />
+                    <GradientStop Color="Silver" Offset="0.5" />
+                    <GradientStop Color="Silver" Offset="1" />
+                  </LinearGradientBrush>
+                </Rectangle.Fill>
+                <Rectangle.RenderTransform>
+                  <TransformGroup>
+                    <RotateTransform Angle="{Binding Angle}" CenterX="12.5" CenterY="12.5" />
+                    <TranslateTransform X="{Binding X}" Y="{Binding Y}" />
+                  </TransformGroup>
+                </Rectangle.RenderTransform>
+              </Rectangle>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <ItemsControl ItemsSource="{Binding Map}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <ItemsControl ItemsSource="{Binding}">
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                  </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+              </ItemsControl>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </Grid>
+      
     </DataTemplate>
   </Window.Resources>
   
@@ -55,19 +85,6 @@
       <ColumnDefinition Width="3*" />
       <ColumnDefinition Width="3*" />
     </Grid.ColumnDefinitions>
-    
-    <Grid Grid.Column="1">
-      <Rectangle Width="114" Height="24"
-                 RadiusX="40" RadiusY="10">
-        <Rectangle.Fill>
-          <LinearGradientBrush EndPoint="1,0">
-            <GradientStop Color="Silver" Offset="0" />
-            <GradientStop Color="Silver" Offset="0.5" />
-            <GradientStop Color="Silver" Offset="1" />
-          </LinearGradientBrush>
-        </Rectangle.Fill>
-      </Rectangle>
-    </Grid>
 
     <StackPanel Margin="20">
       <TextBlock d:Text="0:00"

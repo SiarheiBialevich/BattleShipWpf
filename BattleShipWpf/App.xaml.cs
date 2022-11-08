@@ -13,5 +13,6 @@ namespace BattleShipWpf
    /// </summary>
    public partial class App : Application
    {
+      public const int CellSize = 30;
    }
 }
