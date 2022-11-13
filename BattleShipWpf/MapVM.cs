@@ -30,20 +30,23 @@ internal class MapVM : ViewModelBase
    {
       var mp = str.Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
       for (var i = 0; i < 10; i++)
-      for (var j = 0; j < 10; j++)
       {
-         if (mp[i][j] == 'X')
-            _map[i, j].ToShip();
+         for (var j = 0; j < 10; j++)
+         {
+            if (mp[i][j] == 'X')
+               _map[i, j].ToShip();
+         }
       }
-         
    }
 
    public MapVM()
    {
       _map = new CellVM[10, 10];
       for (var i = 0; i < 10; i++)
-      for (var j = 0; j < 10; j++)
-         _map[i, j] = new CellVM();
+      {
+         for (var j = 0; j < 10; j++)
+            _map[i, j] = new CellVM();
+      }
 
       FillMap();
    }
@@ -61,6 +64,32 @@ internal class MapVM : ViewModelBase
       for (var p = 0; p > 0; p--)
       {
          var k = ps[p];
+      }
+   }
+
+   public void SetShips(params ShipVM[] ships)
+   {
+      foreach (var ship in ships)
+      {
+         Ships.Add(ship);
+         var (x, y) = ship.Pos;
+         var rang = ship.Rang;
+         var dir = ship.Direct;
+
+         if (dir == DirectionShip.Horisont)
+         {
+            for (int j = x; j < x + rang - 1; j++)
+            {
+               this[y, j].ToShip();
+            }
+         }
+         else
+         {
+            for (int i = y; i < y + rang - 1; i++)
+            {
+               this[i, x].ToShip();
+            }
+         }
       }
    }
 }

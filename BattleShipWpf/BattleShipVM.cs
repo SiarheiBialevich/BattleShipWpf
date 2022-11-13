@@ -11,7 +11,7 @@ namespace BattleShipWpf
 
       string _time = "";
 
-      private string _ourMap =
+      private string _sampleMap =
          @"
 **********
 *XXXX***X*
@@ -40,10 +40,21 @@ XX*XX***XX
          _timer.Interval = TimeSpan.FromMilliseconds(100);
          _timer.Tick += Timer_Tick;
 
-         OurMap = new MapVM(_ourMap);
-         EnemyMap = new MapVM(_ourMap);
+         OurMap = new MapVM(_sampleMap);
+         OurMap.SetShips(
+            new ShipVM { Rang = 4, Pos = (1, 1) },
+            new ShipVM { Rang = 3, Pos = (6, 1), Direct = DirectionShip.Vertical },
+            new ShipVM { Rang = 3, Pos = (8, 1), Direct = DirectionShip.Vertical },
+            new ShipVM { Rang = 2, Pos = (1, 3) },
+            new ShipVM { Rang = 2, Pos = (1, 5) },
+            new ShipVM { Rang = 2, Pos = (4, 3), Direct = DirectionShip.Vertical },
+            new ShipVM { Rang = 1, Pos = (1, 9) },
+            new ShipVM { Rang = 1, Pos = (2, 7) },
+            new ShipVM { Rang = 1, Pos = (4, 7) },
+            new ShipVM { Rang = 1, Pos = (8, 9) }
+            );
+         EnemyMap = new MapVM(_sampleMap);
 
-         FillShip();
       }
 
       private void Timer_Tick(object? sender, EventArgs e)
@@ -56,21 +67,6 @@ XX*XX***XX
       public void ShotToOurMap(int x, int y)
       {
          OurMap[x, y].ToShot();
-      }
-
-      void FillShip()
-      {
-         var ships = OurMap.Ships;
-         ships.Add(new ShipVM { Rang = 4, Pos = (1, 1) });
-         ships.Add(new ShipVM { Rang = 3, Pos = (6, 1), Direct = DirectionShip.Vertical });
-         ships.Add(new ShipVM { Rang = 3, Pos = (8, 1), Direct = DirectionShip.Vertical });
-         ships.Add(new ShipVM { Rang = 2, Pos = (1, 3) });
-         ships.Add(new ShipVM { Rang = 2, Pos = (1, 5) });
-         ships.Add(new ShipVM { Rang = 2, Pos = (4, 3), Direct = DirectionShip.Vertical });
-         ships.Add(new ShipVM { Rang = 1, Pos = (1, 9) });
-         ships.Add(new ShipVM { Rang = 1, Pos = (2, 7) });
-         ships.Add(new ShipVM { Rang = 1, Pos = (4, 7) });
-         ships.Add(new ShipVM { Rang = 1, Pos = (8, 9) });
       }
 
       public void Start()

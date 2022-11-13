@@ -17,7 +17,19 @@
               Height="31"
               Margin="0,0,-1,-1"
               MouseDown="Border_MouseDown">
-        <Grid>
+        
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+          <Grid.RenderTransform>
+            <TransformGroup>
+              <RotateTransform Angle="{Binding Angle}" CenterX="15" CenterY="15" />
+              <ScaleTransform ScaleX="{Binding ScaleX}" ScaleY="{Binding ScaleY}"
+                              CenterX="15" CenterY="15"/>
+              <SkewTransform AngleX="{Binding AngleX}" AngleY="{Binding AngleY}"
+                             CenterX="15" CenterY="15" />
+              <TranslateTransform X="{Binding ShiftX}" Y="{Binding ShiftY}" />
+            </TransformGroup>
+          </Grid.RenderTransform>
+          
           <Ellipse Width="7" Height="7" Fill="#8F00"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
